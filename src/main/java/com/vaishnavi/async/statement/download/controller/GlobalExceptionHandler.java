@@ -17,8 +17,17 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ConstraintViolationException.class)
+    /**
+     * To handle constraint violation exception globally.
+     *
+     * @param ex ConstraintViolationException thrown by any repository.
+     * @return Response generic response for the frontend system
+     * @author Vaishnavi Bagal
+     * @version 1.0
+     * @since 1.0
+     */
 
+    @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Response> handleValidationExceptions(ConstraintViolationException ex) {
         List<String> errors = new ArrayList<>();
         ex.getConstraintViolations().forEach(
@@ -29,6 +38,12 @@ public class GlobalExceptionHandler {
 
     }
 
+    /**
+     * To handle constraint violation exception globally.
+     *
+     * @param ex MethodArgumentNotValidException thrown by any DTO validation.
+     * @return Response generic response for the frontend system
+     */
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Response> handleValidationErrors(MethodArgumentNotValidException ex) {

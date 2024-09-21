@@ -5,6 +5,13 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * This class represents core banking statement generation request
+ *
+ * @author Vaishnavi Bagal
+ * @version 1.0
+ * @since 1.0
+ */
 @Builder
 @Data
 public class CoreBankingStatementRequest {
@@ -14,5 +21,4 @@ public class CoreBankingStatementRequest {
     private Date startDate;
     private Date endDate;
     private int perPageCount;
-
 }

@@ -13,8 +13,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
+import java.util.List;
 
+/**
+ * This controller contains statement-request end point
+ *
+ * @author Vaishnavi Bagal
+ * @version 1.0
+ * @since 1.0
+ */
 @RestController
 @RequestMapping("/v1/statement-requests")
 public class StatementGenerationRequestController {
@@ -30,6 +37,6 @@ public class StatementGenerationRequestController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Response.builder()
                         .data(statementGenerationService.saveRequest(generateStatementRequest))
-                        .message(Arrays.asList("Request Created Successfully")).build());
+                        .message(List.of("Request Created Successfully")).build());
     }
 }

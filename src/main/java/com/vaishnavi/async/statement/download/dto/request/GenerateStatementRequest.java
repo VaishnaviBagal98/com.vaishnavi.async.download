@@ -5,6 +5,14 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * This class holds the representation of statement generation request
+ * from client
+ *
+ * @author Vaishnavi Bagal
+ * @version 1.0
+ * @since 1.0
+ */
 @Data
 public class GenerateStatementRequest {
 

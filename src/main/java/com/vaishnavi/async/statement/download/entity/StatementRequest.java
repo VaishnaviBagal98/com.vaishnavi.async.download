@@ -10,12 +10,20 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * This is an entity class of database table STATEMENT_REQUEST
+ *
+ * @author Vaishnavi Bagal
+ * @version 1.0
+ * @since 1.0
+ */
 @Builder
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class StatementRequest {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

@@ -5,22 +5,32 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+/**
+ * This class is email service implemented to send email to user for notifications.
+ *
+ * @author Vaishnavi Bagal
+ * @version 1.0
+ * @since 1.0
+ */
 @Service
 public class EmailService {
 
     @Autowired
     private JavaMailSender emailSender;
 
-        public void sendEmail (String toEmail, String subject, String body){
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom("vaishnavibagal1998@gmail.com");
-            message.setTo(toEmail);
-            message.setSubject(subject);
-            message.setText(body);
-
-            emailSender.send(message);
-
-            System.out.println("Message sent successfully");
-
-        }
+    /**
+     * This method sends emails to user
+     *
+     * @param toEmail email ID of the receiver
+     * @param subject subject line of email
+     * @param body    email body
+     */
+    public void sendEmail(String toEmail, String subject, String body) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("vaishnavibagal1998@gmail.com");
+        message.setTo(toEmail);
+        message.setSubject(subject);
+        message.setText(body);
+        emailSender.send(message);
     }
+}
