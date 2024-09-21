@@ -15,8 +15,8 @@ public class StatementGenerationRequestControllerIT {
     private StatementGenerationService statementGenerationService;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
-    }
+}
 }

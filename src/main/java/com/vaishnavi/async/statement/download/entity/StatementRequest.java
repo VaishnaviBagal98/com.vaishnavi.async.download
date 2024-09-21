@@ -2,8 +2,10 @@ package com.vaishnavi.async.statement.download.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.UUID;
@@ -11,6 +13,8 @@ import java.util.UUID;
 @Builder
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class StatementRequest {
 
     @Id
@@ -36,11 +40,10 @@ public class StatementRequest {
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private StatementRequestStatusCode status = StatementRequestStatusCode.CREATED;
+    private Date updatedAt;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date getCreatedDate() {
         return new Date();
     }
-
-    private Date updatedAt;
 }

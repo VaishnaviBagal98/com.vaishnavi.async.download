@@ -1,10 +1,10 @@
 package com.vaishnavi.async.statement.download.service;
 
+import com.vaishnavi.async.statement.download.dto.request.GenerateStatementRequest;
 import com.vaishnavi.async.statement.download.dto.response.GenerateStatementResponse;
+import com.vaishnavi.async.statement.download.entity.StatementRequest;
 import com.vaishnavi.async.statement.download.entity.StatementRequestStatusCode;
 import com.vaishnavi.async.statement.download.repository.StatementRequestRecordRepository;
-import com.vaishnavi.async.statement.download.dto.request.GenerateStatementRequest;
-import com.vaishnavi.async.statement.download.entity.StatementRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +16,7 @@ public class StatementGenerationService {
     @Autowired
     private StatementRequestRecordRepository statementRequestRecordRepository;
 
-    public GenerateStatementResponse saveRequest(GenerateStatementRequest generateStatementRequest){
-       return  mapStatementRequestToGenerateStatementResponse(statementRequestRecordRepository.save(mapGenerateStatementRequestToStatementRequest(generateStatementRequest)));
-    }
-
-    public static StatementRequest mapGenerateStatementRequestToStatementRequest(GenerateStatementRequest generateStatementRequest){
+    public static StatementRequest mapGenerateStatementRequestToStatementRequest(GenerateStatementRequest generateStatementRequest) {
         return StatementRequest.builder()
                 .userId(generateStatementRequest.getUserId())
                 .accountNo(generateStatementRequest.getAccountNo())
@@ -29,7 +25,7 @@ public class StatementGenerationService {
                 .build();
     }
 
-    public static GenerateStatementResponse mapStatementRequestToGenerateStatementResponse(StatementRequest statementRequest){
+    public static GenerateStatementResponse mapStatementRequestToGenerateStatementResponse(StatementRequest statementRequest) {
         return GenerateStatementResponse.builder()
                 .reqId(statementRequest.getReqId())
                 .userId(statementRequest.getUserId())
@@ -39,7 +35,12 @@ public class StatementGenerationService {
                 .status(statementRequest.getStatus().name())
                 .build();
     }
-    public List<StatementRequest> getStatementRequestRecordByStatus(StatementRequestStatusCode status) {
-         return statementRequestRecordRepository.findByStatus(status);
+
+    public GenerateStatementResponse saveRequest(GenerateStatementRequest generateStatementRequest) {
+        return mapStatementRequestToGenerateStatementResponse(statementRequestRecordRepository.save(mapGenerateStatementRequestToStatementRequest(generateStatementRequest)));
     }
+
+//    public List<StatementRequest> getStatementRequestRecordByStatus(StatementRequestStatusCode status) {
+//       // return statementRequestRecordRepository.findByStatus(status);
+//    }
 }

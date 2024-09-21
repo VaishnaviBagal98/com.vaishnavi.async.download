@@ -1,8 +1,8 @@
 package com.vaishnavi.async.statement.download.service;
 
 
-import com.vaishnavi.async.statement.download.repository.StatementRequestRecordRepository;
 import com.vaishnavi.async.statement.download.entity.StatementRequest;
+import com.vaishnavi.async.statement.download.repository.StatementRequestRecordRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class StatementGenerationServiceIT {
     private StatementRequestRecordRepository statementRequestRecordRepository;
 
     @Test
-    public void testGetUsersByStatus(){
+    public void testGetUsersByStatus() {
         List<StatementRequest> activeUsers = statementGenerationService.getStatementRequestRecordByStatus("CREATED");
     }
 }

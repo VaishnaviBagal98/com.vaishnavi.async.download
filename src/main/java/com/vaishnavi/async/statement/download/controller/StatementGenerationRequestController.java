@@ -1,12 +1,10 @@
 package com.vaishnavi.async.statement.download.controller;
 
-import com.vaishnavi.async.statement.download.dto.response.GenerateStatementResponse;
+import com.vaishnavi.async.statement.download.dto.request.GenerateStatementRequest;
 import com.vaishnavi.async.statement.download.dto.response.Response;
 import com.vaishnavi.async.statement.download.repository.StatementRequestRecordRepository;
-import com.vaishnavi.async.statement.download.dto.request.GenerateStatementRequest;
 import com.vaishnavi.async.statement.download.service.StatementGenerationService;
 import jakarta.validation.Valid;
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
