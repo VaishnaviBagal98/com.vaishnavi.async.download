@@ -30,11 +30,13 @@ public class CoreBankingService {
      * @return CoreBankingStatementResponse List of all the transactions in pageable format .
      */
     public CoreBankingStatementResponse getTransactions(CoreBankingStatementRequest coreBankingStatementRequest) {
+        int mockTotalCount = 10000;
+
         List<TransactionDetail> mockTransactions = new ArrayList<>(coreBankingStatementRequest.getPerPageCount());
         for (int mockCount = 0; mockCount < coreBankingStatementRequest.getPerPageCount(); mockCount++) {
             mockTransactions.add(mockTransactionDetail());
         }
-        int mockTotalCount = 100000;
+
         return CoreBankingStatementResponse.builder()
                 .transactions(mockTransactions)
                 .perPageCount(coreBankingStatementRequest.getPerPageCount())

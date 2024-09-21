@@ -31,9 +31,6 @@ public class StatementGenerationService {
     private StatementRequestRecordRepository statementRequestRecordRepository;
 
     @Autowired
-    private StatementGenerationService statementGenerationService;
-
-    @Autowired
     private ExecutorService executorService;
 
     @Autowired
@@ -41,6 +38,9 @@ public class StatementGenerationService {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private PDFGenerationService pdfGenerationService;
 
     /**
      * This method maps GenerateStatementRequest to StatementRequest
@@ -117,7 +117,7 @@ public class StatementGenerationService {
         try {
             List<TransactionDetail> transactionDetails = new ArrayList<>();
             int pageNo = 0;
-            int perPageCount = 200;
+            int perPageCount = 100;
             int totalRecords = 0;
             do {
                 CoreBankingStatementResponse coreBankingStatementResponse = coreBankingService.getTransactions(CoreBankingStatementRequest.builder()
@@ -133,7 +133,13 @@ public class StatementGenerationService {
                 }
                 pageNo++;
             } while (totalRecords > (perPageCount * pageNo));
-            emailService.sendEmail("vaishnavibagal1998@gmail.com", "testing", "Hello,\nPlease find the link of statement. \nAccount No : " + statementRequest.getAccountNo() + ".\nFrom: " + statementRequest.getStartDate() + "\nTo: " + statementRequest.getEndDate());
+
+            pdfGenerationService.createPDF(transactionDetails, statementRequest.getReqId().toString());
+            statementRequest.setStatus(StatementRequestStatusCode.COMPLETED);
+            statementRequestRecordRepository.save(statementRequest);
+            emailService.sendEmail("vaishnavibagal1998@gmail.com", "testing", "Hello,\nPlease find the link of statement. \nAccount No : " + statementRequest.getAccountNo() +
+                    ".\nFrom: " + statementRequest.getStartDate() + "\nTo: " + statementRequest.getEndDate()
+                    + "\nDownload Link: " + "http://localhost:9197/v1/download/" + statementRequest.getReqId() + ".pdf");
         } catch (Exception e) {
             statementRequest.setStatus(StatementRequestStatusCode.FAILED);
             statementRequestRecordRepository.save(statementRequest);
