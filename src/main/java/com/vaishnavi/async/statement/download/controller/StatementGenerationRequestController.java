@@ -5,6 +5,7 @@ import com.vaishnavi.async.statement.download.dto.response.Response;
 import com.vaishnavi.async.statement.download.repository.StatementRequestRecordRepository;
 import com.vaishnavi.async.statement.download.service.StatementGenerationService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/v1/statement-requests")
+@Slf4j
 public class StatementGenerationRequestController {
 
     @Autowired
@@ -34,6 +36,8 @@ public class StatementGenerationRequestController {
 
     @PostMapping
     public ResponseEntity<Response> createRequest(@Valid @RequestBody GenerateStatementRequest generateStatementRequest) {
+        log.info("Inside the StatementGenerationService");
+
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Response.builder()
                         .data(statementGenerationService.saveRequest(generateStatementRequest))

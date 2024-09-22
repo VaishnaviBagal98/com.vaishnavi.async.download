@@ -1,5 +1,6 @@
 package com.vaishnavi.async.statement.download.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,12 +16,14 @@ import java.nio.file.Paths;
 
 @RestController
 @RequestMapping("/v1/download")
+@Slf4j
 public class StatementDownloadController {
 
     @GetMapping("/{filename:.+}")
     public ResponseEntity<FileSystemResource> downloadFile(@PathVariable String filename) {
+        log.info("Inside the StatementDownloadController");
 
-        Path filePath = Paths.get( System.getProperty("user.dir"), filename);
+        Path filePath = Paths.get(System.getProperty("user.dir"), filename);
         File file = filePath.toFile();
 
         if (!file.exists()) {

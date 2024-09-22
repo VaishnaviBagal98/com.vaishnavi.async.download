@@ -1,5 +1,6 @@
 package com.vaishnavi.async.statement.download.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
  * @since 1.0
  */
 @Service
+@Slf4j
 public class EmailService {
 
     @Autowired
@@ -26,11 +28,16 @@ public class EmailService {
      * @param body    email body
      */
     public void sendEmail(String toEmail, String subject, String body) {
+        log.info("Inside email service");
+
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("vaishnavibagal1998@gmail.com");
         message.setTo(toEmail);
         message.setSubject(subject);
         message.setText(body);
         emailSender.send(message);
+
+        log.info("Email send successfully to {}",toEmail);
+
     }
 }

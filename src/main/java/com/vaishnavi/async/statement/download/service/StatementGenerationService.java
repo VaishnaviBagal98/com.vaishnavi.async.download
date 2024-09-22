@@ -8,6 +8,7 @@ import com.vaishnavi.async.statement.download.dto.response.TransactionDetail;
 import com.vaishnavi.async.statement.download.entity.StatementRequest;
 import com.vaishnavi.async.statement.download.entity.StatementRequestStatusCode;
 import com.vaishnavi.async.statement.download.repository.StatementRequestRecordRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import java.util.concurrent.ExecutorService;
  * @since 1.0
  */
 @Service
+@Slf4j
 public class StatementGenerationService {
 
     @Autowired
@@ -49,6 +51,8 @@ public class StatementGenerationService {
      * @return StatementRequest is database entity .
      */
     public static StatementRequest mapGenerateStatementRequestToStatementRequest(GenerateStatementRequest generateStatementRequest) {
+        log.info("Mapping started from GenerateStatementRequest to StatementRequest");
+
         return StatementRequest.builder()
                 .userId(generateStatementRequest.getUserId())
                 .accountNo(generateStatementRequest.getAccountNo())
@@ -65,6 +69,8 @@ public class StatementGenerationService {
      * @return GenerateStatementResponse response for the UI
      */
     public static GenerateStatementResponse mapStatementRequestToGenerateStatementResponse(StatementRequest statementRequest) {
+        log.info("Mapping started from StatementRequest to GenerateStatementResponse");
+
         return GenerateStatementResponse.builder()
                 .reqId(statementRequest.getReqId())
                 .userId(statementRequest.getUserId())
@@ -83,6 +89,7 @@ public class StatementGenerationService {
      * @return GenerateStatementResponse result of request save.
      */
     public GenerateStatementResponse saveRequest(GenerateStatementRequest generateStatementRequest) {
+        log.info("saving into database");
         return mapStatementRequestToGenerateStatementResponse(statementRequestRecordRepository.save(mapGenerateStatementRequestToStatementRequest(generateStatementRequest)));
     }
 
@@ -94,6 +101,8 @@ public class StatementGenerationService {
      */
     @Scheduled(fixedDelay = 1000)
     public void findAndSubmitEligibleRequest() {
+        log.info("Async process is started");
+
         statementRequestRecordRepository.findAllEligibleRequestForProcessing().forEach(
                 statementRequest -> {
                     Thread processThread = new Thread(() -> processStatementRequest(statementRequest));
@@ -108,8 +117,7 @@ public class StatementGenerationService {
     /**
      * This method fetches all the transaction between the period from the
      * mocked core banking service and sends document generation request and updates
-     * the request status in the database .
-     * And notify to the user
+     * the request status in the database .And notify to the user
      *
      * @param statementRequest details
      */
@@ -137,6 +145,9 @@ public class StatementGenerationService {
             pdfGenerationService.createPDF(transactionDetails, statementRequest.getReqId().toString());
             statementRequest.setStatus(StatementRequestStatusCode.COMPLETED);
             statementRequestRecordRepository.save(statementRequest);
+
+            log.info("Email sending service started");
+
             emailService.sendEmail("vaishnavibagal1998@gmail.com", "testing", "Hello,\nPlease find the link of statement. \nAccount No : " + statementRequest.getAccountNo() +
                     ".\nFrom: " + statementRequest.getStartDate() + "\nTo: " + statementRequest.getEndDate()
                     + "\nDownload Link: " + "http://localhost:9197/v1/download/" + statementRequest.getReqId() + ".pdf");
@@ -144,6 +155,7 @@ public class StatementGenerationService {
             statementRequest.setStatus(StatementRequestStatusCode.FAILED);
             statementRequestRecordRepository.save(statementRequest);
         }
+            log.info("Email sends successfully");
     }
 
 
