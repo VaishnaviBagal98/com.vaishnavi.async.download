@@ -37,7 +37,7 @@ public class EmailService {
         message.setText(body);
         emailSender.send(message);
 
-        log.info("Email send successfully to {}",toEmail);
+        log.info("Email send successfully to {}", toEmail);
 
     }
 }

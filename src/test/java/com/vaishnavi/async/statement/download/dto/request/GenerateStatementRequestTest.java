@@ -2,8 +2,6 @@ package com.vaishnavi.async.statement.download.dto.request;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class GenerateStatementRequestTest {
 
     @Test

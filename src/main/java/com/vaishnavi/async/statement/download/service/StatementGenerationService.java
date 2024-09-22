@@ -8,7 +8,6 @@ import com.vaishnavi.async.statement.download.dto.response.TransactionDetail;
 import com.vaishnavi.async.statement.download.entity.StatementRequest;
 import com.vaishnavi.async.statement.download.entity.StatementRequestStatusCode;
 import com.vaishnavi.async.statement.download.repository.StatementRequestRecordRepository;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -160,7 +159,7 @@ public class StatementGenerationService {
             statementRequest.setStatus(StatementRequestStatusCode.FAILED);
             statementRequestRecordRepository.save(statementRequest);
         }
-            log.info("Email sends successfully");
+        log.info("Email sends successfully");
     }
 
 
