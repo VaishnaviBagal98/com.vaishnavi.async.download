@@ -1,7 +1,9 @@
 package com.vaishnavi.async.statement.download.dto.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -12,6 +14,8 @@ import java.util.List;
  * @version 1.0
  * @since 1.0
  */
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Data
 public class CoreBankingStatementResponse {
