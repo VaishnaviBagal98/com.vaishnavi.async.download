@@ -58,6 +58,7 @@ An API for making a asynchronous statement generation ,allowing user to sends re
 - Password : password
 - To receive email  update the property (**mock.send.email.id**) with your email id in application.properties
 - **Please Note :Email service will be active for the next 1 week as the authentication key will expire post that** .
+- Import postman collection : Async Statement API.postman_collection.json
    
 ## Testing
   - Run tests using Maven: mvn test
