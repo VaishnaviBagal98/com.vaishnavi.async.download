@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "6d9b0ad1-b062-4cfe-93cb-61e4d0c3f326",
+		"name": "Async Statement API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34801746"
+	},
+	"item": [
+		{
+			"name": "To Create Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountNo\" : 123,\r\n    \"userId\" : 3,\r\n    \"startDate\":\"2012-03-04\",\r\n    \"endDate\" : \"2012-03-04\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9197/v1/statement-requests",
+					"host": [
+						"localhost"
+					],
+					"port": "9197",
+					"path": [
+						"v1",
+						"statement-requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "To Download Statement PDF",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9197/v1/download/{{requestId}}.pdf",
+					"host": [
+						"localhost"
+					],
+					"port": "9197",
+					"path": [
+						"v1",
+						"download",
+						"{{requestId}}.pdf"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
