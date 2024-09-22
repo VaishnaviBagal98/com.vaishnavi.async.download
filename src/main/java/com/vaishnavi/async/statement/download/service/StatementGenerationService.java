@@ -8,8 +8,10 @@ import com.vaishnavi.async.statement.download.dto.response.TransactionDetail;
 import com.vaishnavi.async.statement.download.entity.StatementRequest;
 import com.vaishnavi.async.statement.download.entity.StatementRequestStatusCode;
 import com.vaishnavi.async.statement.download.repository.StatementRequestRecordRepository;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +45,9 @@ public class StatementGenerationService {
 
     @Autowired
     private PDFGenerationService pdfGenerationService;
+
+    @Value("${mock.send.email.id}")
+    private String mockEmail;
 
     /**
      * This method maps GenerateStatementRequest to StatementRequest
@@ -113,7 +118,6 @@ public class StatementGenerationService {
         );
     }
 
-
     /**
      * This method fetches all the transaction between the period from the
      * mocked core banking service and sends document generation request and updates
@@ -148,7 +152,8 @@ public class StatementGenerationService {
 
             log.info("Email sending service started");
 
-            emailService.sendEmail("vaishnavibagal1998@gmail.com", "testing", "Hello,\nPlease find the link of statement. \nAccount No : " + statementRequest.getAccountNo() +
+            emailService.sendEmail(mockEmail, "testing", "Hello," +
+                    "\nPlease find the link of statement. \nAccount No : " + statementRequest.getAccountNo() +
                     ".\nFrom: " + statementRequest.getStartDate() + "\nTo: " + statementRequest.getEndDate()
                     + "\nDownload Link: " + "http://localhost:9197/v1/download/" + statementRequest.getReqId() + ".pdf");
         } catch (Exception e) {
