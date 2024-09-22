@@ -41,10 +41,11 @@ An API for making a asynchronous statement generation ,allowing user to sends re
   spring.datasource.username=sa
   spring.datasource.password=password
 
-4. How to configure your gmail account for testing API locally :
+4.How to configure your gmail account for testing API locally :
+
    - Go to your gmail account
+   - Click Manage your google Account.
    - ![image](https://github.com/user-attachments/assets/6cc930b1-ff8b-4291-83f8-7683a080b7e9)
-   - click Manage your google Account.
    - Search App Password.
    - Put your gmail password
    - You will receive randome password eg: alaf lhuu nliz xekl save it somewhere and put in your Application.properties file
