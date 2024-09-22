@@ -8,8 +8,6 @@ An API for making a asynchronous statement generation ,allowing user to sends re
 - [Installation](#installation)
 - [Usage](#usage)
 - [Testing](#testing)
-- [Contributing](#contributing)
-- [Acknowledgments](#acknowledgments)
 
 ## Features
 
